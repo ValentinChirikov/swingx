@@ -281,10 +281,11 @@ public class JXTaskPane extends JPanel implements
    * @beaninfo bound: true hidden: true description: The UI object that
    * implements the taskpane group's LookAndFeel.
    */
-  public void setUI(TaskPaneUI ui) {
-    super.setUI(ui);
-  }
-
+//  public void setUI(TaskPaneUI ui) {
+//    super.setUI(ui);
+//  }
+//Test was failing for JXTaskPaneBeanInfoTest testBoundProperties()
+  
   /**
    * Returns the name of the L&F class that renders this component.
    * 

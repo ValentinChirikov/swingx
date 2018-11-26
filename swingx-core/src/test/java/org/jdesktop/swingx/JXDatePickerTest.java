@@ -1235,7 +1235,8 @@ public class JXDatePickerTest extends InteractiveTestCase {
         JXDatePicker picker = new JXDatePicker(new Date());
         String text = picker.getEditor().getText();
         // manipulate the text, not entirely safe ...
-        String changed = text.replace('0', '1');
+        //String changed = text.replace('0', '1');
+        String changed = text.substring(0, text.length()-2) + "17";
         picker.getEditor().setText(changed);
         final ActionReport actionReport = new ActionReport();
         picker.addActionListener(actionReport);
@@ -1573,7 +1574,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Format[] formats = picker.getFormats();
         assertEquals(picker.getDate(), formats[0].parseObject(text));
         // manipulate the text, not entirely safe ...
-        String changed = text.replace('0', '1');
+        String changed = text.substring(0, text.length()-2) + "17";
         picker.getEditor().setText(changed);
         Date date;
         try {
@@ -1602,7 +1603,7 @@ public class JXDatePickerTest extends InteractiveTestCase {
         Format[] formats = picker.getFormats();
         assertEquals(picker.getDate(), formats[0].parseObject(text));
         // manipulate the text, not entirely safe ...
-        String changed = text.replace('0', '1');
+        String changed = text.substring(0, text.length()-2) + "17";
         picker.getEditor().setText(changed);
         Date date;
         try {

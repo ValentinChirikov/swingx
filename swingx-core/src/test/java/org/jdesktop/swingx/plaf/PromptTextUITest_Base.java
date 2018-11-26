@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public abstract class PromptTextUITest_Base {
+
     protected JTextComponent textComponent;
     protected PromptTextUI ui;
 
@@ -33,15 +34,15 @@ public abstract class PromptTextUITest_Base {
     }
 
     public abstract void setup();
-    
+
     @Test
     public void testGetBaseLine() {
-    	int baseline = ui.getBaseline(textComponent, textComponent.getWidth(), textComponent.getHeight());
-		if(JVM.current().isOrLater(JVM.JDK1_6)){
-    		assertNotSame(-2, baseline);
-    	}else{
-    		assertSame(-2, baseline);
-    	}
+        int baseline = ui.getBaseline(textComponent, textComponent.getWidth(), textComponent.getHeight());
+        if (JVM.current().isOrLater(JVM.JDK1_6)) {
+            assertNotSame(-2, baseline);
+        } else {
+            assertSame(-2, baseline);
+        }
     }
 
     @Test
@@ -65,7 +66,7 @@ public abstract class PromptTextUITest_Base {
         textComponent.setText("test");
         assertFalse(ui.shouldPaintPrompt(textComponent));
     }
-    
+
     @Test
     public void testCreateLabelComponent() {
         assertNotNull(ui.createPromptComponent());
@@ -76,23 +77,23 @@ public abstract class PromptTextUITest_Base {
         PromptSupport.setPrompt("test", textComponent);
         PromptSupport.setForeground(Color.BLACK, textComponent);
         PromptSupport.setBackground(Color.RED, textComponent);
-        
+
         textComponent.setBorder(BorderFactory.createBevelBorder(1));
         textComponent.setEnabled(false);
         textComponent.setEditable(false);
         textComponent.setOpaque(false);
-        textComponent.setBounds(new Rectangle(1,1));
+        textComponent.setBounds(new Rectangle(1, 1));
         textComponent.setBackground(Color.BLACK);
         textComponent.setFont(textComponent.getFont().deriveFont(Font.ITALIC, 20));
         textComponent.setSelectedTextColor(Color.BLACK);
         textComponent.setSelectionColor(Color.BLACK);
-        textComponent.setMargin(new Insets(1,1,1,1));
+        textComponent.setMargin(new Insets(1, 1, 1, 1));
         JTextComponent lbl = ui.getPromptComponent(textComponent);
-        
+
         assertEquals(PromptSupport.getPrompt(textComponent), lbl.getText());
         assertEquals(PromptSupport.getForeground(textComponent), lbl.getForeground());
         assertEquals(PromptSupport.getBackground(textComponent), lbl.getBackground());
-        
+
         assertEquals(textComponent.getBorder().getBorderInsets(textComponent),
                 lbl.getBorder().getBorderInsets(lbl));
         assertEquals(textComponent.isEnabled(), lbl.isEnabled());
@@ -103,7 +104,7 @@ public abstract class PromptTextUITest_Base {
         assertEquals(textComponent.getSelectedTextColor(), lbl.getSelectedTextColor());
         assertEquals(textComponent.getSelectionColor(), lbl.getSelectionColor());
         assertEquals(textComponent.getMargin(), lbl.getMargin());
-        
+
         PromptSupport.setFontStyle(Font.BOLD, textComponent);
         lbl = ui.getPromptComponent(textComponent);
         assertEquals(textComponent.getFont().deriveFont(Font.BOLD), lbl.getFont());
@@ -114,15 +115,15 @@ public abstract class PromptTextUITest_Base {
         textComponent.setText("label text");
         PromptSupport.setPrompt("label text", textComponent);
         assertEquals(textComponent.getPreferredSize(), ui.getPromptComponent(textComponent).getPreferredSize());
-        
+
         textComponent.setText("text");
         assertFalse(textComponent.getPreferredSize().equals(ui.getPromptComponent(textComponent).getPreferredSize()));
     }
-    
+
     @Test
     public void testPromptSupportStaysInstalledOnUIChange() {
-    	assertTrue(textComponent.getUI() instanceof PromptTextUI);
-    	textComponent.updateUI();
-    	assertTrue(textComponent.getUI() instanceof PromptTextUI);
+        assertTrue(textComponent.getUI() instanceof PromptTextUI);
+        textComponent.updateUI();
+        assertTrue(textComponent.getUI() instanceof PromptTextUI);
     }
 }

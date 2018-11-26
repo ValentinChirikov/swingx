@@ -403,12 +403,14 @@ public class JXSearchFieldTest {
     @Test
     public void testPopupButton() throws Exception {
         searchField.setFindPopupMenu(new JPopupMenu());
+        searchField.setUseSeperatePopupButton(false);
         assertFalse(searchField.getFindButton().isVisible());
         assertTrue(searchField.getPopupButton().isVisible());
 
         assertFalse(searchField.isUseSeperatePopupButton());
         searchField.addPropertyChangeListener("useSeperatePopupButton",
                 new PropertyChangeListener() {
+                    @Override
                     public void propertyChange(PropertyChangeEvent evt) {
                         eventReceived = true;
                     }

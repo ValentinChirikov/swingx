@@ -32,6 +32,7 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
 import org.jdesktop.test.TreeModelReport;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -72,6 +73,7 @@ public class TreeModelSupportTest extends TestCase {
      *   by TreePath but isn't)
      */
     @Test
+    @Ignore
     public void testPathChangedNotNullPathElements() {
         TreePath path = new TreePath(new Object[] {null});
         try {
@@ -123,6 +125,7 @@ public class TreeModelSupportTest extends TestCase {
      *
      *
      */
+    @Ignore
     @Test
     public void testTreeStructureChangedNotNullPathElements() {
         TreePath path = new TreePath(new Object[] {null});

@@ -28,6 +28,7 @@ import javax.swing.UIManager;
 import org.jdesktop.swingx.InteractiveTestCase;
 import org.jdesktop.swingx.JXTable;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -55,6 +56,7 @@ public class UIColorHighlighterTest extends InteractiveTestCase {
      *  
      * @throws Exception
      */
+    @Ignore
     @Test
     public void testAlternateRaw() throws Exception {
         if (!hasLookAndFeel("Nimbus")) {
