@@ -59,7 +59,6 @@ import javax.swing.AbstractListModel;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -1571,6 +1570,30 @@ public class JXLoginPane extends JXPanel {
         return dlg.getStatus();
     }
 
+     /**
+     * Set's up parent component and shows a login dialog. Disposes parent after login procedure finishes, 
+     * construction like @{code if(loginPane.getStatus() == CANCELLED || loginPane.getStatus() == NOT_STARTED) System.exit(0);}
+     * should be used in parent windowClosed action
+     * @param parent Parent component
+     * @param panel 
+     */
+    public static void initLoginDialog(Component parent, JXLoginPane panel) {
+        if(parent == null ) throw new AssertionError("Parent must not be null");
+        if(panel == null ) throw new AssertionError("Panel must not be null");
+        Window w = WindowUtils.findWindow(parent);
+        if (w instanceof Dialog) {
+            Dialog d = (Dialog)w;
+            d.setTitle(UIManagerExt.getString(CLASS_NAME + ".titleString", d.getLocale()));
+            initWindow(d, panel);            
+        } else if (w instanceof Frame) {
+            Frame f = (Frame)w;
+            f.setTitle(UIManagerExt.getString(CLASS_NAME + ".titleString", f.getLocale()));
+            initWindow(f, panel); 
+        } else {
+            throw new AssertionError("Shouldn't be able to happen");
+        }
+    }
+    
     /**
      * Shows a login frame. A JFrame is not modal, and thus does not block
      */
@@ -1624,7 +1647,7 @@ public class JXLoginPane extends JXPanel {
 
     public static final class JXLoginFrame extends JXFrame {
         private static final long serialVersionUID = -9016407314342050807L;
-        private JXLoginPane panel;
+        private final JXLoginPane panel;
 
         public JXLoginFrame(JXLoginPane p) {
             super(UIManagerExt.getString(CLASS_NAME + ".titleString", p.getLocale()));
@@ -1667,7 +1690,6 @@ public class JXLoginPane extends JXPanel {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //change panel status to canceled!
                 panel.status = JXLoginPane.Status.CANCELLED;
                 w.setVisible(false);
                 w.dispose();
@@ -1710,7 +1732,7 @@ public class JXLoginPane extends JXPanel {
         panel.setButtonPanel(buttonPanel);
         JXPanel controls = new JXPanel(new FlowLayout(FlowLayout.RIGHT));
         controls.setOpaque(false);
-        new BoxLayout(controls, BoxLayout.X_AXIS);
+        //new BoxLayout(controls, BoxLayout.X_AXIS);
         controls.add(Box.createHorizontalGlue());
         controls.add(buttonPanel);
         w.add(controls, BorderLayout.SOUTH);
